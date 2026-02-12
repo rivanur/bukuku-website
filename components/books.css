@@ -1,0 +1,471 @@
+/* ========== BOOKS COMPONENT - FIXED GRID LAYOUT ========== */
+/* TIDAK MELEBAR - UKURAN CARD KONSISTEN */
+
+.books-section {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+.books-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#booksCount {
+    color: #8b7355;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* ========== FILTER SECTION ========== */
+.filter-section {
+    max-width: 1200px;
+    margin: 2rem auto 1.5rem;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+.filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.filter-header h3 {
+    color: #4a3b2c;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid #ecd8b4;
+    border-radius: 40px;
+    padding: 0.2rem 0.2rem 0.2rem 1.2rem;
+    width: 280px;
+    transition: all 0.2s;
+}
+
+.search-box:focus-within {
+    border-color: #c17b4c;
+    box-shadow: 0 0 0 3px rgba(193, 123, 76, 0.1);
+}
+
+.search-box i {
+    color: #8b7355;
+    font-size: 0.9rem;
+}
+
+.search-box input {
+    border: none;
+    padding: 0.7rem 0.5rem;
+    width: 100%;
+    font-size: 0.95rem;
+    background: transparent;
+}
+
+.search-box input:focus {
+    outline: none;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.filter-btn {
+    background: white;
+    border: 2px solid #ecd8b4;
+    color: #6b4f3a;
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #c17b4c;
+    color: white;
+    border-color: #c17b4c;
+}
+
+/* ========== SORT SELECT ========== */
+.sort-select {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.sort-select label {
+    color: #6b4f3a;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.sort-select select {
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border: 2px solid #ecd8b4;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    color: #4a3b2c;
+    background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b4f3a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 1rem center;
+    background-size: 16px;
+    appearance: none;
+    cursor: pointer;
+}
+
+/* ========== BOOKS GRID - FIXED WIDTH CARDS ========== */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.8rem;
+    margin-top: 1.5rem;
+}
+
+/* ========== BOOK CARD - UKURAN FIX ========== */
+.book-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.2rem;
+    box-shadow: 0 4px 12px rgba(74, 59, 44, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #ecd8b4;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    min-height: 480px;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(193, 123, 76, 0.12);
+    border-color: #c17b4c;
+}
+
+/* Cover Image - Fixed Size */
+.book-cover {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    background: #ecd8b4;
+}
+
+.no-cover {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #8b7355 0%, #c17b4c 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+/* Category & Badge */
+.book-category {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #c17b4c;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    min-height: 24px;
+}
+
+.new-book-badge {
+    background: #c17b4c;
+    color: white;
+    padding: 0.2rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.6rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* Title - Fixed Height 2 lines */
+.book-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #4a3b2c;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3rem;
+    max-height: 3rem;
+}
+
+/* Author */
+.book-author {
+    color: #8b7355;
+    font-size: 0.85rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 1.5rem;
+}
+
+/* Description - Fixed Height 3 lines */
+.book-desc {
+    font-size: 0.85rem;
+    color: #6b4f3a;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3.8rem;
+    max-height: 3.8rem;
+    flex-grow: 1;
+}
+
+/* Meta (Price & Date) - Fixed at bottom */
+.book-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #ecd8b4;
+    padding-top: 0.8rem;
+    margin-top: auto;
+}
+
+.book-price {
+    font-weight: 700;
+    color: #c17b4c;
+    font-size: 1rem;
+}
+
+.book-date {
+    color: #8b7355;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+/* Admin Controls */
+.admin-controls {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    border-top: 2px solid #ecd8b4;
+    padding-top: 1rem;
+}
+
+.btn-edit,
+.btn-delete {
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    transition: all 0.2s;
+    border: none;
+}
+
+.btn-edit {
+    background: #ecd8b4;
+    color: #6b4f3a;
+}
+
+.btn-edit:hover {
+    background: #c17b4c;
+    color: white;
+}
+
+.btn-delete {
+    background: #e6b0a2;
+    color: #6b2e1e;
+}
+
+.btn-delete:hover {
+    background: #b45f4a;
+    color: white;
+}
+
+/* ========== PAGINATION ========== */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    background: white;
+    border: 2px solid #ecd8b4;
+    color: #6b4f3a;
+    padding: 0.6rem 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 600;
+    min-width: 45px;
+}
+
+.page-btn.active {
+    background: #c17b4c;
+    color: white;
+    border-color: #c17b4c;
+}
+
+.page-btn:hover:not(.active):not(.disabled) {
+    background: #ecd8b4;
+}
+
+.page-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-dots {
+    padding: 0.6rem 0.3rem;
+    color: #8b7355;
+}
+
+/* ========== EMPTY STATE ========== */
+.empty-state {
+    grid-column: 1/-1;
+    text-align: center;
+    padding: 3rem;
+    color: #8b7355;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ========== RESPONSIVE - FIXED GRID ========== */
+
+/* Mobile: 1 column */
+@media (max-width: 639px) {
+    .books-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+    
+    .book-card {
+        min-height: 460px;
+    }
+    
+    .filter-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+    
+    .books-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .sort-select {
+        width: 100%;
+    }
+    
+    .sort-select select {
+        width: 100%;
+    }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 640px) and (max-width: 899px) {
+    .books-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .book-card {
+        min-height: 470px;
+    }
+}
+
+/* Desktop Small: 3 columns */
+@media (min-width: 900px) and (max-width: 1199px) {
+    .books-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.8rem;
+    }
+    
+    .book-card {
+        min-height: 480px;
+    }
+}
+
+/* Desktop Large: 4 columns */
+@media (min-width: 1200px) {
+    .books-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+    
+    .book-card {
+        min-height: 490px;
+    }
+}
+
+/* ========== PRINT STYLES ========== */
+@media print {
+    .filter-section,
+    .sort-select,
+    .pagination,
+    .admin-controls,
+    .btn-edit,
+    .btn-delete {
+        display: none;
+    }
+    
+    .book-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}

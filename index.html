@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bukuku — Buku Baru Rilis</title>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Components -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="components/navbar.css">
+    <link rel="stylesheet" href="components/hero.css">
+    <link rel="stylesheet" href="components/auth.css">
+    <link rel="stylesheet" href="components/modal.css">
+    <link rel="stylesheet" href="components/books.css">
+    <link rel="stylesheet" href="components/admin.css">
+    <link rel="stylesheet" href="components/contact.css">
+</head>
+<body>
+
+    <!-- Navbar Component -->
+    <div id="navbar-container"></div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <div id="hero-container"></div>
+
+        <!-- Admin Dashboard -->
+        <div id="admin-container" style="display: none;"></div>
+
+        <!-- Filter & Books Section -->
+        <div id="filter-container"></div>
+        <div id="books-container"></div>
+
+        <!-- Contact Section -->
+        <div id="contact-container" style="display: none;"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Bukuku. Dibuat dengan ❤️ untuk pecinta buku.</p>
+        </div>
+    </footer>
+
+    <!-- Modals Container -->
+    <div id="login-modal-container"></div>
+    <div id="register-modal-container"></div>
+    <div id="book-detail-modal-container"></div>
+    <div id="edit-book-modal-container"></div>
+    <div id="logout-modal-container"></div>
+    <div id="delete-account-modal-container"></div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage">Notifikasi</span>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="utils/constants.js"></script>
+    <script src="utils/storage.js"></script>
+    <script src="utils/toast.js"></script>
+    
+    <script src="components/navbar.js"></script>
+    <script src="components/hero.js"></script>
+    <script src="components/auth.js"></script>
+    <script src="components/books.js"></script>
+    <script src="components/book-detail.js"></script>
+    <script src="components/admin.js"></script>
+    <script src="components/contact.js"></script>
+    <script src="components/logout.js"></script>
+    <script src="components/delete-account.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>
