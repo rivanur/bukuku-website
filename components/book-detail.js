@@ -14,13 +14,13 @@ const BookDetail = {
         
         const coverHtml = book.cover 
             ? `<img src="${book.cover}" alt="${book.title}" class="book-detail-cover-img">`
-            : `<div class="no-cover">📚</div>`;
+            : `<div class="no-cover">Buku</div>`;
         
         container.innerHTML = `
             <div id="bookDetailModal" class="modal" style="display: block;">
                 <div class="modal-content modal-large">
                     <div class="modal-header">
-                        <h2 style="color: #4a3b2c; margin: 0; font-size: 1.5rem;">📖 Detail Buku</h2>
+                        <h2 style="color: #4a3b2c; margin: 0; font-size: 1.5rem;">Detail Buku</h2>
                         <span class="close" onclick="BookDetail.close()">&times;</span>
                     </div>
                     <div class="modal-body">
@@ -34,23 +34,23 @@ const BookDetail = {
                                 </div>
                                 <h1 class="book-detail-title">${book.title}</h1>
                                 <div class="book-detail-author">
-                                    <i class="fas fa-pencil-alt"></i> ${book.author}
+                                    ${book.author}
                                 </div>
                                 
                                 <div class="book-detail-meta">
                                     <span class="book-detail-price">${book.price}</span>
                                     <span class="book-detail-date">
-                                        <i class="fas fa-calendar-alt"></i> ${book.releaseDate}
+                                        ${book.releaseDate}
                                     </span>
                                 </div>
                                 
                                 <div class="book-detail-desc">
-                                    <h3>📝 Deskripsi Buku</h3>
+                                    <h3>Deskripsi Buku</h3>
                                     <p>${book.description}</p>
                                 </div>
                                 
                                 <div class="book-detail-specs">
-                                    <h3><i class="fas fa-info-circle"></i> Informasi Detail</h3>
+                                    <h3>Informasi Detail</h3>
                                     <div class="specs-grid">
                                         <div class="spec-item">
                                             <span class="spec-label">Penerbit</span>

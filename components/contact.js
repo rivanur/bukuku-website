@@ -9,29 +9,25 @@ const Contact = {
         container.innerHTML = `
             <section class="contact-section">
                 <div class="contact-container">
-                    <h2><i class="fas fa-envelope"></i> Hubungi Kami</h2>
+                    <h2>Hubungi Kami</h2>
                     <div class="contact-content">
                         <div class="contact-info">
                             <div class="contact-card">
-                                <i class="fas fa-map-marker-alt"></i>
                                 <h3>Alamat</h3>
                                 <p>Jl. Buku Indah No. 123</p>
                                 <p>Jakarta, Indonesia 12345</p>
                             </div>
                             <div class="contact-card">
-                                <i class="fas fa-phone"></i>
                                 <h3>Telepon</h3>
                                 <p>(021) 1234-5678</p>
                                 <p>Senin - Jumat, 09:00 - 17:00</p>
                             </div>
                             <div class="contact-card">
-                                <i class="fas fa-envelope"></i>
                                 <h3>Email</h3>
                                 <p>info@bukuku.id</p>
                                 <p>bantuan@bukuku.id</p>
                             </div>
                             <div class="contact-card">
-                                <i class="fas fa-clock"></i>
                                 <h3>Jam Operasional</h3>
                                 <p>Senin - Jumat: 09:00 - 20:00</p>
                                 <p>Sabtu - Minggu: 10:00 - 18:00</p>
@@ -48,7 +44,7 @@ const Contact = {
                                 <input type="text" id="contactSubject" placeholder="Subjek" required>
                                 <textarea id="contactMessage" placeholder="Pesan Anda..." rows="5" required></textarea>
                                 <button type="submit" class="btn-send">
-                                    <i class="fas fa-paper-plane"></i> Kirim Pesan
+                                    Kirim Pesan
                                 </button>
                             </form>
                         </div>

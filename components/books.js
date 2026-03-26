@@ -98,9 +98,9 @@ const Books = {
         if (!countElement) return;
         
         if (window.appState.currentMenu === 'newbooks') {
-            countElement.innerHTML = `📌 Buku Baru 2025: ${shown} dari ${total} buku`;
+            countElement.innerHTML = `Buku Baru 2025: ${shown} dari ${total} buku`;
         } else {
-            countElement.innerHTML = `📚 Menampilkan ${shown} dari ${total} buku`;
+            countElement.innerHTML = `Menampilkan ${shown} dari ${total} buku`;
         }
     },
     
@@ -108,10 +108,9 @@ const Books = {
     getEmptyStateHTML: function() {
         return `
             <div class="empty-state">
-                <i class="fas fa-book-open"></i>
                 <p>Belum ada buku dalam kategori ini</p>
                 ${window.appState.currentMenu === 'newbooks' ? 
-                    '<p class="suggestion">📅 Belum ada buku baru rilis. Cek lagi nanti!</p>' : ''}
+                    '<p class="suggestion">Belum ada buku baru rilis. Cek lagi nanti!</p>' : ''}
             </div>
         `;
     },
@@ -136,7 +135,7 @@ const Books = {
             <div class="book-card" onclick="BookDetail.open(${book.id})">
                 ${book.cover ? 
                     `<img src="${book.cover}" alt="${book.title}" class="book-cover" loading="lazy">` : 
-                    `<div class="no-cover">📚</div>`
+                    `<div class="no-cover">Buku</div>`
                 }
                 <div class="book-category">
                     <span>${book.category.replace('-', ' ')}</span>
@@ -249,7 +248,7 @@ const Books = {
         container.innerHTML = `
             <section class="filter-section">
                 <div class="filter-header">
-                    <h3>📖 Jelajahi Kategori</h3>
+                    <h3>Jelajahi Kategori</h3>
                     <div class="search-box">
                         <i class="fas fa-search"></i>
                         <input type="text" id="searchInput" placeholder="Cari judul atau penulis..." autocomplete="off">

@@ -13,7 +13,6 @@ const Logout = {
                     
                     <div style="padding: 1rem 0;">
                         <div style="background: #f1e6d8; width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center;">
-                            <i class="fas fa-sign-out-alt" style="font-size: 2.5rem; color: #c17b4c;"></i>
                         </div>
                         
                         <h2 style="color: #4a3b2c; margin-bottom: 0.5rem; font-size: 1.8rem;">Keluar Akun?</h2>
@@ -28,7 +27,7 @@ const Logout = {
                             
                             <button onclick="Logout.confirm()" 
                                 style="flex: 1; padding: 1rem; background: #c17b4c; color: white; border: none; border-radius: 12px; font-weight: 600; font-size: 1rem; cursor: pointer;">
-                                <i class="fas fa-sign-out-alt"></i> Ya, Keluar
+                                Ya, Keluar
                             </button>
                         </div>
                     </div>
@@ -109,6 +108,6 @@ const Logout = {
         Books.render();
         
         // Show toast
-        Toast.show(`Sampai jumpa, ${userName}! 👋`, 'info');
+        Toast.show(`Sampai jumpa, ${userName}!`, 'info');
     }
 };

@@ -74,7 +74,7 @@ const UI = {
         });
         
         Books.render();
-        Toast.show('Menampilkan buku terbaru 2025! 📚', 'info');
+        Toast.show('Menampilkan buku terbaru 2025!', 'info');
     },
     
     // Show contact page

@@ -9,7 +9,7 @@ const Admin = {
         container.innerHTML = `
             <section class="admin-section">
                 <div class="admin-container">
-                    <h2>📋 Panel Pengelola</h2>
+                    <h2>Panel Pengelola</h2>
                     
                     <div class="stats-container">
                         <div class="stat-card">
@@ -36,7 +36,7 @@ const Admin = {
                     </div>
 
                     <div class="add-book-form">
-                        <h3><i class="fas fa-plus-circle"></i> Tambah Buku Baru</h3>
+                        <h3>Tambah Buku Baru</h3>
                         <form id="addBookForm">
                             <div class="form-row">
                                 <input type="text" id="bookTitle" placeholder="Judul Buku" required>
@@ -132,7 +132,7 @@ const Admin = {
             <div id="editBookModal" class="modal" style="display: block;">
                 <div class="modal-content modal-large">
                     <span class="close" onclick="Admin.closeEditModal()">&times;</span>
-                    <h2>✏️ Edit Buku</h2>
+                    <h2>Edit Buku</h2>
                     <form id="editBookForm">
                         <input type="hidden" id="editBookId" value="${book.id}">
                         

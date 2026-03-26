@@ -39,8 +39,8 @@ const Auth = {
                     <span class="close" onclick="Auth.closeModal('loginModal')">&times;</span>
                     <h2>Masuk ke Bukuku</h2>
                     <div class="role-selector">
-                        <button class="role-btn active" data-role="user">👤 Pembaca</button>
-                        <button class="role-btn" data-role="admin">⚙️ Pengelola</button>
+                        <button class="role-btn active" data-role="user">Pembaca</button>
+                        <button class="role-btn" data-role="admin">Pengelola</button>
                     </div>
                     <form id="loginForm">
                         <input type="text" id="loginUsername" placeholder="Nama Pengguna" required>
@@ -68,8 +68,8 @@ const Auth = {
                     <span class="close" onclick="Auth.closeModal('registerModal')">&times;</span>
                     <h2>Daftar Akun Baru</h2>
                     <div class="role-selector">
-                        <button class="role-btn active" data-role="user">👤 Pembaca</button>
-                        <button class="role-btn" data-role="admin">⚙️ Pengelola</button>
+                        <button class="role-btn active" data-role="user">Pembaca</button>
+                        <button class="role-btn" data-role="admin">Pengelola</button>
                     </div>
                     <form id="registerForm">
                         <input type="text" id="regFullname" placeholder="Nama Lengkap" required>

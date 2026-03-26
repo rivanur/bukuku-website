@@ -9,7 +9,7 @@ const Navbar = {
         container.innerHTML = `
             <nav>
                 <div class="nav-container">
-                    <h1 class="logo" onclick="Navbar.scrollToTop()">📖 Bukuku</h1>
+                    <h1 class="logo" onclick="Navbar.scrollToTop()">Bukuku</h1>
                     
                     <button class="hamburger" id="hamburgerBtn" onclick="Navbar.toggleMenu()">
                         <span></span>

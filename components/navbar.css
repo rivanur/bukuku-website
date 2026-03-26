@@ -1,12 +1,15 @@
 /* ========== NAVBAR COMPONENT - MOBILE FIRST ========== */
 
 nav {
-    background: #8b7355;
+    background: rgba(139, 115, 85, 0.85); /* Semi-transparent primary */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding: 0.8rem 1rem;
     position: sticky;
     top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 12px rgba(74, 59, 44, 0.1);
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-container {
@@ -21,14 +24,18 @@ nav {
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #fff9ef;
+    color: var(--footer-text);
     letter-spacing: -0.5px;
-    transition: all 0.2s;
+    transition: var(--transition);
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
 }
 
 .logo:hover {
-    color: #ecd8b4;
+    color: var(--accent-light);
+    transform: scale(1.02);
 }
 
 /* ========== HAMBURGER MENU ========== */
@@ -116,21 +123,24 @@ nav {
 }
 
 .btn-login-nav {
-    background: #c17b4c;
+    background: var(--accent-color);
     color: white;
     border: none;
-    padding: 0.5rem 1.2rem;
+    padding: 0.6rem 1.5rem;
     border-radius: 40px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
-    border: 1px solid rgba(255, 249, 239, 0.3);
+    transition: var(--transition);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     font-size: 0.9rem;
     white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(193, 123, 76, 0.2);
 }
 
 .btn-login-nav:hover {
-    background: #a5683e;
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(193, 123, 76, 0.3);
 }
 
 .btn-logout {

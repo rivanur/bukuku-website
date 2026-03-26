@@ -100,9 +100,11 @@
 
 .filter-btn.active,
 .filter-btn:hover {
-    background: #c17b4c;
+    background: var(--accent-color);
     color: white;
-    border-color: #c17b4c;
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(193, 123, 76, 0.2);
 }
 
 /* ========== SORT SELECT ========== */
@@ -140,12 +142,12 @@
 
 /* ========== BOOK CARD - UKURAN FIX ========== */
 .book-card {
-    background: white;
+    background: var(--white);
     border-radius: 16px;
     padding: 1.2rem;
-    box-shadow: 0 4px 12px rgba(74, 59, 44, 0.05);
-    transition: all 0.3s ease;
-    border: 1px solid #ecd8b4;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    border: 1px solid var(--accent-light);
     display: flex;
     flex-direction: column;
     cursor: pointer;
@@ -153,12 +155,14 @@
     max-width: 100%;
     height: 100%;
     min-height: 480px;
+    position: relative;
+    overflow: hidden;
 }
 
 .book-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(193, 123, 76, 0.12);
-    border-color: #c17b4c;
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(74, 59, 44, 0.15);
+    border-color: var(--accent-color);
 }
 
 /* Cover Image - Fixed Size */
@@ -217,6 +221,7 @@
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 3rem;
@@ -245,6 +250,7 @@
     line-height: 1.5;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     min-height: 3.8rem;
@@ -257,7 +263,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 2px solid #ecd8b4;
+    border-top: 1px solid var(--accent-light);
     padding-top: 0.8rem;
     margin-top: auto;
 }
