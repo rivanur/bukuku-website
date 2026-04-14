@@ -93,40 +93,39 @@ const Auth = {
         const form = document.getElementById('loginForm');
         if (!form) return;
         
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const username = document.getElementById('loginUsername').value;
             const password = document.getElementById('loginPassword').value;
-            const role = this.closest('.modal-content').querySelector('.role-btn.active').dataset.role;
+            const role = e.target.closest('.modal-content').querySelector('.role-btn.active').dataset.role;
             
-            const user = Storage.getUsers().find(u => 
-                u.username === username && 
-                u.password === password && 
-                u.role === role
-            );
+            const result = await Storage.login(username, password);
             
-            if (user) {
-                window.appState.currentUser = {
-                    id: user.id,
-                    username: user.username,
-                    fullname: user.fullname,
-                    role: user.role
-                };
+            if (result.status === 'success') {
+                const user = result.user;
                 
-                Storage.saveUser(window.appState.currentUser);
+                // Cek role (Opsional, jika ingin membatasi login admin/user)
+                if (user.role !== role) {
+                    Toast.show(`Role akun ini adalah ${user.role}, bukan ${role}!`, 'error');
+                    return;
+                }
+
                 Auth.closeModal('loginModal');
                 
                 window.appState.currentMenu = 'home';
                 Navbar.updateActiveMenu('home');
                 Navbar.updateAuthButtons(window.appState.currentUser);
                 UI.updateForUser();
+                
+                // Refresh books data dari DB
+                window.appState.booksData = await Storage.getBooks();
                 Books.render();
                 
                 Toast.show(`Selamat datang, ${user.fullname}!`);
                 this.reset();
             } else {
-                Toast.show('Username/password salah!', 'error');
+                Toast.show(result.error || 'Username/password salah!', 'error');
             }
         });
         
@@ -143,14 +142,14 @@ const Auth = {
         const form = document.getElementById('registerForm');
         if (!form) return;
         
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const fullname = document.getElementById('regFullname').value;
             const username = document.getElementById('regUsername').value;
             const password = document.getElementById('regPassword').value;
             const confirmPassword = document.getElementById('regConfirmPassword').value;
-            const role = this.closest('.modal-content').querySelector('.role-btn.active').dataset.role;
+            const role = e.target.closest('.modal-content').querySelector('.role-btn.active').dataset.role;
             
             if (password !== confirmPassword) {
                 Toast.show('Konfirmasi password tidak cocok!', 'error');
@@ -162,21 +161,18 @@ const Auth = {
                 return;
             }
             
-            const users = Storage.getUsers();
-            if (users.find(u => u.username === username)) {
-                Toast.show('Username sudah digunakan!', 'error');
-                return;
-            }
-            
-            const newUser = {
-                id: users.length + 1,
+            const result = await Storage.register({
                 fullname,
                 username,
                 password,
                 role
-            };
+            });
             
-            Storage.addUser(newUser);
+            if (result.error) {
+                Toast.show(result.error, 'error');
+                return;
+            }
+            
             Toast.show('Registrasi berhasil! Silakan login.');
             Auth.closeModal('registerModal');
             Auth.openLoginModal();

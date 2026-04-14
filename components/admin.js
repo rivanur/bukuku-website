@@ -53,8 +53,8 @@ const Admin = {
                             </div>
                             <textarea id="bookDesc" placeholder="Deskripsi Buku" rows="3" required></textarea>
                             <div class="form-row">
-                                <input type="text" id="bookPrice" placeholder="Harga (contoh: Rp 89.000)" required>
-                                <input type="text" id="bookReleaseDate" placeholder="Tahun Rilis (contoh: 2025)" required>
+                                <input type="number" id="bookPrice" placeholder="Harga (misal: 85000.50)" step="0.01" required>
+                                <input type="date" id="bookReleaseDate" required title="Tanggal Rilis">
                             </div>
                             <button type="submit" class="btn-add">
                                 <i class="fas fa-plus"></i> Tambah Buku
@@ -70,11 +70,12 @@ const Admin = {
     
     // Update admin stats
     updateStats: function() {
-        const books = Storage.getBooks();
-        const users = Storage.getUsers();
+        const books = window.appState.booksData || [];
+        // Untuk users, sementara kita hardcode atau biarkan 1 sampai API Users lengkap
+        const usersCount = window.appState.currentUser ? 1 : 0; 
         
         document.getElementById('totalBooksStat').textContent = books.length;
-        document.getElementById('totalUsersStat').textContent = users.length;
+        document.getElementById('totalUsersStat').textContent = usersCount;
         
         const books2025 = books.filter(book => book.releaseDate === '2025').length;
         document.getElementById('newBooksStat').textContent = books2025;
@@ -85,7 +86,7 @@ const Admin = {
         const form = document.getElementById('addBookForm');
         if (!form) return;
         
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             if (window.appState.currentUser?.role !== 'admin') {
@@ -93,11 +94,7 @@ const Admin = {
                 return;
             }
             
-            const books = Storage.getBooks();
-            const newId = books.length > 0 ? Math.max(...books.map(b => b.id)) + 1 : 1;
-            
             const newBook = {
-                id: newId,
                 title: document.getElementById('bookTitle').value,
                 author: document.getElementById('bookAuthor').value,
                 category: document.getElementById('bookCategory').value,
@@ -105,14 +102,14 @@ const Admin = {
                 description: document.getElementById('bookDesc').value,
                 price: document.getElementById('bookPrice').value,
                 releaseDate: document.getElementById('bookReleaseDate').value,
-                isNew: document.getElementById('bookReleaseDate').value === '2025',
-                publisher: "Gramedia",
-                pages: 250,
-                language: "Indonesia",
-                isbn: "978-602-1234-56-7"
+                isNew: document.getElementById('bookReleaseDate').value.startsWith('2025')
             };
             
-            Storage.addBook(newBook);
+            await Storage.addBook(newBook);
+            
+            // Refresh data
+            window.appState.booksData = await Storage.getBooks();
+            
             Books.render();
             Admin.updateStats();
             this.reset();
@@ -124,7 +121,7 @@ const Admin = {
     openEditModal: function(bookId) {
         if (window.appState.currentUser?.role !== 'admin') return;
         
-        const book = Storage.getBookById(bookId);
+        const book = window.appState.booksData.find(b => b.id === bookId);
         if (!book) return;
         
         const modalContainer = document.getElementById('edit-book-modal-container');
@@ -172,11 +169,11 @@ const Admin = {
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Harga</label>
-                                <input type="text" id="editBookPrice" value="${book.price}" required>
+                                <input type="number" id="editBookPrice" value="${book.price}" step="0.01" required>
                             </div>
                             <div class="form-group">
-                                <label>Tahun Rilis</label>
-                                <input type="text" id="editBookReleaseDate" value="${book.releaseDate}" required>
+                                <label>Tanggal Rilis</label>
+                                <input type="date" id="editBookReleaseDate" value="${book.releaseDate ? book.releaseDate.substring(0, 10) : ''}" required>
                             </div>
                         </div>
 
@@ -204,7 +201,7 @@ const Admin = {
         const form = document.getElementById('editBookForm');
         if (!form) return;
         
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const bookId = parseInt(document.getElementById('editBookId').value);
@@ -217,11 +214,16 @@ const Admin = {
                 description: document.getElementById('editBookDesc').value,
                 price: document.getElementById('editBookPrice').value,
                 releaseDate: document.getElementById('editBookReleaseDate').value,
-                isNew: document.getElementById('editBookReleaseDate').value === '2025'
+                isNew: document.getElementById('editBookReleaseDate').value.startsWith('2025')
             };
             
-            Storage.updateBook(bookId, updatedBook);
+            await Storage.updateBook(bookId, updatedBook);
+            
+            // Refresh data
+            window.appState.booksData = await Storage.getBooks();
+            
             Books.render();
+            Admin.updateStats();
             Admin.closeEditModal();
             Toast.show('Buku berhasil diperbarui!');
         });

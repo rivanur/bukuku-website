@@ -5,20 +5,24 @@ Dokumen ini menjelaskan teknis menghubungkan Frontend Bukuku ke Backend Node.js 
 ## 🛠️ Persiapan Database (Laragon)
 
 1. Buka Laragon, klik **Start All**.
-2. Klik tombol **Database** (HeidiSQL).
-3. Buat database baru bernama `bukuku_db`.
-4. Jalankan query SQL berikut untuk membuat tabel:
+2. Klik tombol **Database** (phpMyAdmin/HeidiSQL).
+3. Jalankan query SQL berikut:
 
 ```sql
+-- Hapus Database lama jika ada
+DROP DATABASE IF EXISTS bukuku_db;
+CREATE DATABASE bukuku_db;
+USE bukuku_db;
+
 -- Tabel Buku
 CREATE TABLE books (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    author VARCHAR(100),
+    author VARCHAR(100) NOT NULL,
     category VARCHAR(50),
     description TEXT,
-    price VARCHAR(50),
-    releaseDate VARCHAR(20),
+    price DECIMAL(10, 2) DEFAULT 0.00,
+    releaseDate DATE,
     cover VARCHAR(255),
     isNew BOOLEAN DEFAULT FALSE,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -33,6 +37,10 @@ CREATE TABLE users (
     role ENUM('admin', 'user') DEFAULT 'user',
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Admin Default (Password: admin123)
+INSERT INTO users (fullname, username, password, role) 
+VALUES ('Administrator', 'admin', 'admin123', 'admin');
 ```
 
 ## 🟢 Setup Node.js (Vercel)

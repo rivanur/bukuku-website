@@ -122,10 +122,9 @@ const UI = {
 };
 
 // Initialize all components
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize storage
-    window.appState.booksData = Storage.getBooks();
-    window.appState.usersData = Storage.getUsers();
+document.addEventListener('DOMContentLoaded', async function() {
+    // Initialize storage (Sekarang Async)
+    window.appState.booksData = await Storage.getBooks();
     window.appState.currentUser = Storage.getCurrentUser();
     
     // Set initial state

@@ -37,11 +37,14 @@ const Books = {
     
     // Filter and sort books
     filterAndSort: function() {
-        let filtered = [...Storage.getBooks()];
+        let filtered = [...(window.appState.booksData || [])];
         
         // Filter new books
         if (window.appState.showingNewBooksOnly || window.appState.currentMenu === 'newbooks') {
-            filtered = filtered.filter(book => book.releaseDate === '2025' || book.isNew === true);
+            filtered = filtered.filter(book => {
+                const releaseYear = book.releaseDate ? new Date(book.releaseDate).getFullYear().toString() : '';
+                return releaseYear === '2025' || book.isNew === true;
+            });
             window.appState.showingNewBooksOnly = false;
         }
         
@@ -74,18 +77,10 @@ const Books = {
                 filtered.sort((a, b) => b.title.localeCompare(a.title));
                 break;
             case 'price-low':
-                filtered.sort((a, b) => {
-                    const priceA = parseInt(a.price.replace(/\D/g, ''));
-                    const priceB = parseInt(b.price.replace(/\D/g, ''));
-                    return priceA - priceB;
-                });
+                filtered.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
                 break;
             case 'price-high':
-                filtered.sort((a, b) => {
-                    const priceA = parseInt(a.price.replace(/\D/g, ''));
-                    const priceB = parseInt(b.price.replace(/\D/g, ''));
-                    return priceB - priceA;
-                });
+                filtered.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
                 break;
         }
         
@@ -148,9 +143,12 @@ const Books = {
                 </div>
                 <div class="book-desc">${desc}</div>
                 <div class="book-meta">
-                    <span class="book-price">${book.price}</span>
+                    <span class="book-price">
+                        ${new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(book.price)}
+                    </span>
                     <span class="book-date">
-                        <i class="far fa-calendar-alt"></i> ${book.releaseDate}
+                        <i class="far fa-calendar-alt"></i> 
+                        ${book.releaseDate ? new Date(book.releaseDate).getFullYear() : 'N/A'}
                     </span>
                 </div>
                 ${window.appState.currentUser?.role === 'admin' ? `
@@ -228,13 +226,17 @@ const Books = {
     },
     
     // Delete book
-    deleteBook: function(bookId) {
+    deleteBook: async function(bookId) {
         if (window.appState.currentUser?.role !== 'admin') {
             Toast.show('Anda tidak memiliki akses!', 'error');
             return;
         }
         
-        Storage.deleteBook(bookId);
+        await Storage.deleteBook(bookId);
+        
+        // Refresh data
+        window.appState.booksData = await Storage.getBooks();
+        
         Toast.show('Buku berhasil dihapus!');
         this.render();
         Admin.updateStats();

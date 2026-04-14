@@ -2,92 +2,88 @@
 
 const Storage = {
     // ----- BOOKS -----
-    getBooks: function() {
-        const storedBooks = localStorage.getItem('bukuku_books');
-        if (storedBooks) {
-            return JSON.parse(storedBooks);
-        } else {
-            this.initializeBooks();
-            return Constants.initialBooks;
+    getBooks: async function() {
+        try {
+            const response = await fetch('/api/books');
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error fetching books:', error);
+            return [];
         }
     },
     
-    initializeBooks: function() {
-        localStorage.setItem('bukuku_books', JSON.stringify(Constants.initialBooks));
-        window.appState.booksData = Constants.initialBooks;
-    },
-    
-    saveBooks: function(books) {
-        localStorage.setItem('bukuku_books', JSON.stringify(books));
-        window.appState.booksData = books;
-    },
-    
-    addBook: function(book) {
-        const books = this.getBooks();
-        books.push(book);
-        this.saveBooks(books);
-    },
-    
-    updateBook: function(bookId, updatedBook) {
-        const books = this.getBooks();
-        const index = books.findIndex(b => b.id === bookId);
-        if (index !== -1) {
-            books[index] = { ...books[index], ...updatedBook };
-            this.saveBooks(books);
+    addBook: async function(book) {
+        try {
+            const response = await fetch('/api/books', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(book)
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Error adding book:', error);
         }
     },
     
-    deleteBook: function(bookId) {
-        const books = this.getBooks();
-        const filtered = books.filter(book => book.id !== bookId);
-        this.saveBooks(filtered);
-    },
-    
-    getBookById: function(bookId) {
-        const books = this.getBooks();
-        return books.find(b => b.id === bookId);
-    },
-    
-    // ----- USERS -----
-    getUsers: function() {
-        const storedUsers = localStorage.getItem('bukuku_users');
-        if (storedUsers) {
-            return JSON.parse(storedUsers);
-        } else {
-            this.initializeUsers();
-            return Constants.initialUsers;
+    updateBook: async function(bookId, updatedBook) {
+        try {
+            const response = await fetch(`/api/books?id=${bookId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedBook)
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating book:', error);
         }
     },
     
-    initializeUsers: function() {
-        localStorage.setItem('bukuku_users', JSON.stringify(Constants.initialUsers));
-        window.appState.usersData = Constants.initialUsers;
+    deleteBook: async function(bookId) {
+        try {
+            await fetch(`/api/books?id=${bookId}`, { method: 'DELETE' });
+        } catch (error) {
+            console.error('Error deleting book:', error);
+        }
     },
     
-    saveUsers: function(users) {
-        localStorage.setItem('bukuku_users', JSON.stringify(users));
-        window.appState.usersData = users;
+    // ----- AUTH & USERS -----
+    login: async function(username, password) {
+        try {
+            const response = await fetch('/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'login', username, password })
+            });
+            const result = await response.json();
+            if (result.status === 'success') {
+                this.saveUser(result.user);
+            }
+            return result;
+        } catch (error) {
+            console.error('Error during login:', error);
+            return { error: 'Terjadi kesalahan koneksi' };
+        }
+    },
+
+    register: async function(user) {
+        try {
+            const response = await fetch('/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'register', ...user })
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Error during registration:', error);
+            return { error: 'Terjadi kesalahan koneksi' };
+        }
     },
     
-    addUser: function(user) {
-        const users = this.getUsers();
-        users.push(user);
-        this.saveUsers(users);
-    },
-    
-    deleteUser: function(userId) {
-        const users = this.getUsers();
-        const filtered = users.filter(u => u.id !== userId);
-        this.saveUsers(filtered);
-    },
-    
-    // ----- CURRENT USER -----
+    // ----- CURRENT SESSION (Tetap di LocalStorage untuk Session Tok) -----
     getCurrentUser: function() {
         const storedUser = localStorage.getItem('bukuku_user');
-        if (storedUser) {
-            return JSON.parse(storedUser);
-        }
-        return null;
+        return storedUser ? JSON.parse(storedUser) : null;
     },
     
     saveUser: function(user) {
@@ -99,4 +95,4 @@ const Storage = {
         localStorage.removeItem('bukuku_user');
         window.appState.currentUser = null;
     }
-};
+};

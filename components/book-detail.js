@@ -3,7 +3,7 @@
 const BookDetail = {
     // Open book detail modal
     open: function(bookId) {
-        const book = Storage.getBookById(bookId);
+        const book = window.appState.booksData.find(b => b.id === bookId);
         if (!book) return;
         
         const container = document.getElementById('book-detail-modal-container');
